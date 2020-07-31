@@ -63,7 +63,18 @@ emilk_loguru_lib = library(
   dependencies: loguru_deps_internal,
   soversion: loguru_lib_soversion,
   version: meson.project_version(),
+  install: true,
 )
+
+install_headers('loguru.hpp')
+
+pkgc = import('pkgconfig')
+pkgc.generate(emilk_loguru_lib,
+    name: 'loguru',
+    version: meson.project_version(),
+    description: 'A lightweight and flexible C++ logging library',
+)
+
 emilk_loguru_dep = declare_dependency(
   include_directories: include_directories('.'),
   link_with: emilk_loguru_lib,
